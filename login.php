@@ -106,7 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="hidden md:block md:w-1/2 bg-cover bg-center" style="background-image: url('./images/m1.png');"></div>
 
         <!-- Form Container -->
-        <div class="w-full md:w-1/2 flex items-center justify-center p-6">
+        <div class="w-full md:w-1/2 flex items-center justify-center p-2">
             <div class="bg-white p-6 w-full max-w-sm rounded-lg shadow-md">
                 <h2 class="text-2xl font-semibold mb-6">Login</h2>
 
