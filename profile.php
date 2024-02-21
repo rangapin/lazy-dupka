@@ -1,8 +1,5 @@
 <?php
-// Include the database connection file
 require_once 'includes/db.php';
-
-// Initialize the session
 session_start();
 
 // Check if the user is logged in
@@ -11,43 +8,33 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     exit;
 }
 
-// Function to sanitize user input
-function sanitizeInput($data) {
-    return htmlspecialchars(stripslashes(trim($data)));
-}
+// Initialize variables
+$userData = [];
 
 // Retrieve user data from the database
-$sql = "SELECT * FROM users WHERE id = ?";
+$sql = "SELECT * FROM Users WHERE username = ?";
 if ($stmt = $conn->prepare($sql)) {
-    $stmt->bind_param("i", $param_id);
-    $param_id = $_SESSION["id"];
+    // Bind parameters
+    $stmt->bind_param("s", $_SESSION["username"]);
+    
+    // Execute the statement
     if ($stmt->execute()) {
+        // Get result set
         $result = $stmt->get_result();
+        
+        // Check if user data exists
         if ($result->num_rows == 1) {
-            $row = $result->fetch_assoc();
-            // Store user data in variables
-            $first_name = $row["first_name"];
-            $last_name = $row["last_name"];
-            $age = $row["age"];
-            $gender = $row["gender"];
-            $weight_kg = $row["weight_kg"];
-            $height_cm = $row["height_cm"];
-            $experience_level = $row["experience_level"];
-            $training_goals = $row["training_goals"];
-            $diving_history = $row["diving_history"];
-            $social_media_links = $row["social_media_links"];
-            $data_sharing_preferences = $row["data_sharing_preferences"];
-            $two_factor_authentication = $row["two_factor_authentication"];
-            $metric_preference = $row["metric_preference"];
+            $userData = $result->fetch_assoc();
         } else {
-            echo "User not found.";
+            echo "User not found. SQL Query: " . $sql;
         }
     } else {
-        echo "Error fetching user data.";
+        echo "Error executing SQL statement: " . $stmt->error;
     }
+    // Close the statement
     $stmt->close();
 } else {
-    echo "Error preparing SQL statement.";
+    echo "Error preparing SQL statement: " . $conn->error;
 }
 
 // Close the database connection
@@ -104,12 +91,12 @@ $conn->close();
                     </select>
                 </div>
                 <div class="w-full">
-                    <label for="weight_kg" class="block text-sm font-semibold text-gray-700 mb-1">Weight (kg):</label>
-                    <input type="number" id="weight_kg" name="weight_kg" value="" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500">
+                    <label for="weight" class="block text-sm font-semibold text-gray-700 mb-1">Weight:</label>
+                    <input type="number" id="weight" name="weight_kg" value="" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500">
                 </div>
                 <div class="w-full">
-                    <label for="height_cm" class="block text-sm font-semibold text-gray-700 mb-1">Height (cm):</label>
-                    <input type="number" id="height_cm" name="height_cm" value="" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500">
+                    <label for="height" class="block text-sm font-semibold text-gray-700 mb-1">Height:</label>
+                    <input type="number" id="height" name="height" value="" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500">
                 </div>
                 <div class="w-full">
                     <label for="experience_level" class="block text-sm font-semibold text-gray-700 mb-1">Experience Level:</label>

@@ -1,8 +1,5 @@
 <?php
-// Include the database connection file
 require_once 'includes/db.php';
-
-// Initialize the session
 session_start();
 
 // Check if the user is already logged in, if yes, redirect to index.php
@@ -56,34 +53,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check input errors before inserting into database
     if (empty($username_err) && empty($password_err) && empty($confirm_password_err) && empty($email_err)) {
 
-// Prepare an insert statement
-$sql = "INSERT INTO users (username, password, email) VALUES (?, ?, ?)";
+        // Prepare an insert statement
+        $sql = "INSERT INTO Users (username, password, email) VALUES (?, ?, ?)";
 
-if ($stmt = $conn->prepare($sql)) {
-    // Bind variables to the prepared statement as parameters
-    $stmt->bind_param("sss", $param_username, $param_password, $param_email);
+        if ($stmt = $conn->prepare($sql)) {
+            // Bind variables to the prepared statement as parameters
+            $stmt->bind_param("sss", $param_username, $param_password, $param_email);
 
-    // Set parameters
-    $param_username = $username;
-    $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
-    $param_email = $email;
+            // Set parameters
+            $param_username = $username;
+            $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
+            $param_email = $email;
 
-    // Attempt to execute the prepared statement
-    if ($stmt->execute()) {
-        // Redirect to login page after successful registration
-        header("location: login.php");
-        exit();
-    } else {
-        $register_err = "Error: " . $conn->error; // Display MySQL error message
-    }
+            // Attempt to execute the prepared statement
+            if ($stmt->execute()) {
+                // Redirect to login page after successful registration
+                header("location: login.php");
+                exit();
+            } else {
+                $register_err = "Error: " . $conn->error; // Display MySQL error message
+            }
 
-    // Close statement
-    $stmt->close();
-} else {
-    $register_err = "Error preparing SQL statement: " . $conn->error; // Display MySQL error message
-}
-
-
+            // Close statement
+            $stmt->close();
+        } else {
+            $register_err = "Error preparing SQL statement: " . $conn->error; // Display MySQL error message
+        }
     }
 
     // Close connection
