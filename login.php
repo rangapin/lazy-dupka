@@ -5,9 +5,6 @@ include_once 'includes/db.php';
 // Initialize the session
 session_start();
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 // Check if the user is already logged in, if yes, redirect to index.php
 if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
     header("location: index.php");
@@ -38,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate credentials
     if (empty($username_err) && empty($password_err)) {
         // Prepare a select statement
-        $sql = "SELECT id, username, password FROM Users WHERE username = ?";
+        $sql = "SELECT user_id, username, password FROM Users WHERE username = ?";
 
         if ($stmt = $conn->prepare($sql)) {
             // Bind variables to the prepared statement as parameters
@@ -68,6 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                             // Redirect user to index.php
                             header("location: index.php");
+                            exit; // Ensure script execution stops after redirection
                         } else {
                             // Display an error message if password is not valid
                             $login_err = "Invalid username or password.";
