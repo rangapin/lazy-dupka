@@ -61,7 +61,7 @@ $conn->close();
                 <li><a href="index.php" class="block py-2 px-4 hover:bg-gray-700">Dashboard</a></li>
                 <li><a href="#" class="block py-2 px-4 hover:bg-gray-700">Edit Profile</a></li>
                 <li><a href="#" class="block py-2 px-4 hover:bg-gray-700">Change Password</a></li>
-                <li><a href="#" class="block py-2 px-4 hover:bg-gray-700">Logout</a></li>
+                <li><a href="logout.php" class="block py-2 px-4 hover:bg-gray-700">Logout</a></li>
             </ul>
         </div>
     </div>

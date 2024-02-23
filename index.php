@@ -16,10 +16,11 @@
             <h2 class="text-lg font-semibold mb-4">Lazy Dupka</h2>
             <ul>
                 <li><a href="index.php" class="block py-2 px-4 hover:bg-gray-700">Dashboard</a></li>
-                <li><a href="profile.php" class="block py-2 px-4 hover:bg-gray-700">My Profile</a></li>
+<!--                 <li><a href="profile.php" class="block py-2 px-4 hover:bg-gray-700">My Profile</a></li> -->
                 <li><a href="create_dive.php" class="block py-2 px-4 hover:bg-gray-700">Add a Dive</a></li>
-                <li><a href="#" class="block py-2 px-4 hover:bg-gray-700">Change Password</a></li>
-                <li><a href="logout.php" class="block py-2 px-4 hover:bg-gray-700">Logout</a></li>
+<!--                 <li><a href="view_sessions.php" class="block py-2 px-4 hover:bg-gray-700">View my sessions</a></li> -->
+<!--                 <li><a href="#" class="block py-2 px-4 hover:bg-gray-700">Change Password</a></li>
+ -->                <li><a href="logout.php" class="block py-2 px-4 hover:bg-gray-700">Logout</a></li>
             </ul>
         </div>
     </div>
@@ -27,10 +28,10 @@
     <!-- Main Content -->
     <div class="flex-1 p-8">
         <!-- Search Bar -->
-        <div class="mb-8">
+<!--         <div class="mb-8">
             <input type="text" placeholder="Search by date, location, etc."
                 class="w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500">
-        </div>
+        </div> -->
 
         <!-- Dive Sessions Table -->
         <div class="bg-white rounded-lg shadow-md p-6">

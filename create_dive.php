@@ -33,8 +33,8 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             <ul>
                 <li><a href="index.php" class="block py-2 px-4 hover:bg-gray-700">Dashboard</a></li>
                 <li><a href="#" class="block py-2 px-4 hover:bg-gray-700">My dives</a></li>
-                <li><a href="#" class="block py-2 px-4 hover:bg-gray-700">My sessions</a></li>
-                <li><a href="profile.php" class="block py-2 px-4 hover:bg-gray-700">My profile</a></li>
+<!--                 <li><a href="#" class="block py-2 px-4 hover:bg-gray-700">My sessions</a></li>
+ --><!--                 <li><a href="profile.php" class="block py-2 px-4 hover:bg-gray-700">My profile</a></li> -->
                 <li><a href="logout.php" class="block py-2 px-4 hover:bg-gray-700">Logout</a></li>
             </ul>
         </div>

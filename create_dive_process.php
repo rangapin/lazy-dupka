@@ -1,8 +1,6 @@
 <?php
+// Include the database connection file
 include_once 'includes/db.php';
-
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 
 // Check if session is started
 session_start();
@@ -44,13 +42,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Execute the prepared statement
     if (mysqli_stmt_execute($stmt)) {
-        // Insert successful, show pop-up message
+        // Insert successful, create a session if it doesn't exist
+        $session_date = date("Y-m-d", strtotime($date));
+        $sql_session_check = "SELECT * FROM Sessions WHERE session_date = ?";
+        $stmt_session_check = mysqli_prepare($conn, $sql_session_check);
+        mysqli_stmt_bind_param($stmt_session_check, "s", $session_date);
+        mysqli_stmt_execute($stmt_session_check);
+        $result_session_check = mysqli_stmt_get_result($stmt_session_check);
+        if (mysqli_num_rows($result_session_check) == 0) {
+            // No session exists for this date, create a new session
+            $sql_create_session = "INSERT INTO Sessions (session_date) VALUES (?)";
+            $stmt_create_session = mysqli_prepare($conn, $sql_create_session);
+            mysqli_stmt_bind_param($stmt_create_session, "s", $session_date);
+            mysqli_stmt_execute($stmt_create_session);
+            if (mysqli_stmt_affected_rows($stmt_create_session) > 0) {
+                echo "<script>alert('Session created successfully.');</script>";
+            } else {
+                echo "<script>alert('Failed to create session.');</script>";
+            }
+            mysqli_stmt_close($stmt_create_session);
+        }
+        mysqli_stmt_close($stmt_session_check);
+
+        // Show pop-up message for successful dive insertion
         echo "<script>alert('Dive inserted successfully.');</script>";
         // Redirect to create_dive page
         echo "<script>window.location.href = 'create_dive.php';</script>";
         exit;
     } else {
-        // Error handling
+        // Error handling for dive insertion
         echo "Error: " . mysqli_error($conn);
     }
 
